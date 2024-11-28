@@ -513,12 +513,9 @@ public class jp extends JPanel {
 						}                                                                                                 
 						                                                                                                  
 					}                                                                                                     
-					int count =1;                                                                                         
 					for(int c = 0; c< zeroSqs.length;c++) {                                                               
 						if(zeroSqs[c]!=null) {                                                                            
 							displayZero(zeroSqs[c].getR(),zeroSqs[c].getC());                                             
-							System.out.println(count+" extra zeros displayed");                                           
-							count++;                                                                                      
 						}                                                                                                 
 						else {                                                                                            
 							break;                                                                                        
@@ -544,9 +541,6 @@ public class jp extends JPanel {
 						}                                                                                                 
 					}                                                                                                     
 							                                                                                              
-					System.out.println(count);                                                                            
-					System.out.println("num of squares mined " +numSqs);                                                  
-					System.out.println("end of click action exec");                                                       
 					                                                                                                      
 			}                                                                                                             
 			                                                                                                              
