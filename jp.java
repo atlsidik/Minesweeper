@@ -1,15 +1,15 @@
 package pk.minesweeper;
-import javax.swing.*;                                                                                                     
-                                                                                                                          
+
+import javax.swing.*;                                                                                                                                                                                                                               
 import java.awt.Dimension;                                                                                                
-                                                                                                                          
-                                                                                                                          
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;                                                                                                                                                                                                                          
 import java.awt.GridLayout;                                                                                               
 import java.awt.Image;                                                                                                    
 import java.awt.Window;                                                                                                   
 import java.awt.event.ActionEvent;                                                                                        
-import java.awt.event.ActionListener;                                                                                     
-                                                                                                                          
+import java.awt.event.ActionListener;                                                                                                                                                                                                               
 import javax.swing.JOptionPane;                                                                                           
                                                                                                                           
                                                                                                                           
@@ -17,9 +17,7 @@ import javax.swing.JOptionPane;
 public class jp extends JPanel {                                                                                          
 	private static final long serialVersionUID = -1512397389518141644L;                                                   
 	private Grid newG= new Grid();                                                                                        
-	//private boolean[][] gridBombs;                                                                                      
-	//private int[][] gridCount;                                                                                          
-	private   int restartGame;                                                                                            
+ 	private   int restartGame;                                                                                            
 	private square[][] sqs ;                                                                                              
 	private square[] zeroSqs ;                                                                                            
 	private int zeroSqsNum =0;                                                                                            
@@ -38,110 +36,116 @@ public class jp extends JPanel {
 		this.setLayout( new GridLayout(10,10,1,1));                                                                       
 		newG = new Grid();                                                                                                
 		sqs = new square[newG.getNumRows()][newG.getNumColumns()];                                                        
-	//	gridBombs = newG.getBombGrid();                                                                                   
-	//	gridCount = newG.getCountGrid();                                                                                  
 		for(int i =0; i< newG.getNumRows() ;++i) {                                                                        
 			for(int j =0 ; j<newG.getNumColumns();++j) {                                                                  
 				square sq= new square(i,j);                                                                               
 			add(sq);                                                                                                      
 			sqs[i] [j]=sq;                                                                                                
-		                                                                                                                  
-			                                                                                                              
 			setVisible(true);                                                                                             
 			}                                                                                                             
 		}                                                                                                                 
 	                                                                                                                      
 		printGrids();                                                                                                     
 		zeroSqs =new square[newG.getNumRows()*newG.getNumColumns()];                                                      
-			java.net.URL bombURL = jp.class.getResource("Images/bomb.jpg");                                               
-	 bombIcon = null;                                                                                                     
+		java.net.URL bombURL = jp.class.getResource("Images/bomb.jpg");                                               
+		 bombIcon = null;                                                                                                     
 	java.net.URL trophyURL = jp.class.getResource("Images/trophy.jpg");                                                   
 	  trophy = null;                                                                                                      
                                                                                                                           
-			if(bombURL !=null){                                                                                           
+		if(bombURL !=null){                                                                                           
 	  bombIcon = new ImageIcon(bombURL);                                                                                  
-	}                                                                                                                     
-	 if(trophyURL !=null){                                                                                                
+		}                                                                                                                     
+	 	if(trophyURL !=null){                                                                                                
 		 trophy = new ImageIcon(trophyURL);                                                                               
-	 }                                                                                                                    
+	 	}                                                                                                                    
 	 bombScaled = new ImageIcon(bombIcon.getImage().getScaledInstance(35,35,Image.SCALE_FAST));                           
 	  bombLoss = new ImageIcon(bombIcon.getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));                        
 	  trophyIcon = new ImageIcon(trophy.getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));                        
-                                                                                                                          
-                                                                                                                          
-                                                                                                                          
-	                                                                                                                      
 	}                                                                                                                     
-	                                                                                                                      
+	    
+
+
+
 	public jp(int r, int c, int numBombs) {                                                                               
 		this.setLayout( new GridLayout(r,c,1,1));                                                                         
 		newG  = new Grid(r,c,numBombs);                                                                                   
 		sqs = new square[newG.getNumRows()][newG.getNumColumns()];                                                        
-                                                                                                                          
-	//	gridBombs = newG.getBombGrid();                                                                                   
-	//	gridCount = newG.getCountGrid();                                                                                  
 		for(int i =0; i< newG.getNumRows() ;++i) {                                                                        
 			for(int j =0 ; j<newG.getNumColumns();++j) {                                                                  
 				square sq= new square(i,j);                                                                               
 			add(sq);                                                                                                      
 			sqs[i][j] =sq;                                                                                                
-			                                                                                                              
-			                                                                                                              
 			setVisible(true);                                                                                             
 			}                                                                                                             
 		}                                                                                                                 
 		printGrids();                                                                                                     
 		zeroSqs =new square[newG.getNumRows()*newG.getNumColumns()];                                                      
 			java.net.URL bombURL = jp.class.getResource("Images/bomb.jpg");                                               
-	 bombIcon = null;                                                                                                     
-	java.net.URL trophyURL = jp.class.getResource("Images/trophy.jpg");                                                   
-	  trophy = null;                                                                                                      
+	    bombIcon = null;                                                                                                     
+		java.net.URL trophyURL = jp.class.getResource("Images/trophy.jpg");                                                   
+	 	 trophy = null;                                                                                                      
                                                                                                                           
-			if(bombURL !=null){                                                                                           
+		if(bombURL !=null){                                                                                           
 	  bombIcon = new ImageIcon(bombURL);                                                                                  
-	}                                                                                                                     
-	 if(trophyURL !=null){                                                                                                
+		}                                                                                                                     
+	   if(trophyURL !=null){                                                                                                
 		 trophy = new ImageIcon(trophyURL);                                                                               
-	 }                                                                                                                    
+		 }                                                                                                                    
 	 bombScaled = new ImageIcon(bombIcon.getImage().getScaledInstance(35,35,Image.SCALE_FAST));                           
 	  bombLoss = new ImageIcon(bombIcon.getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));                        
 	 trophyIcon = new ImageIcon(trophy.getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));                         
-                                                                                                                          
-                                                                                                                          
-                                                                                                                          
-		                                                                                                                  
 	}                                                                                                                     
-	                                                                                                                      
+	   
+
+
+
+
 	public void printGrids() {                                                                                            
-		for(int i =0; i< newG.getNumRows(); ++i){                                                                         
-			System.out.println("----------------------------------------------------------------------");                 
-		for(int j =0 ; j < newG.getNumColumns(); j++){                                                                    
-		System.out.printf("|%6s",newG.getBombGrid()[i][j]);                                                               
-		}                                                                                                                 
-		System.out.print("\n");                                                                                           
-		}                                                                                                                 
-		System.out.println("----------------------------------------------------------------------");                     
-                                                                                                                          
-		System.out.println();                                                                                             
-		System.out.println();                                                                                             
-		System.out.println();                                                                                             
-		System.out.println();                                                                                             
-		System.out.println();                                                                                             
-                                                                                                                          
-                                                                                                                          
-		for(int i= 0 ;i<newG.getNumRows();++i){                                                                           
-			System.out.println("------------------------------");                                                         
-                                                                                                                          
-			for(int j=0; j< newG.getNumColumns();j++ ) {                                                                  
-				System.out.printf("|%2s",newG.getCountGrid()[i][j]);                                                      
-				                                                                                                          
-			}                                                                                                             
-			System.out.print("\n");                                                                                       
-			                                                                                                              
-		}                                                                                                                 
-		System.out.println("------------------------------");                                                             
-                                                                                                                          
-		                                                                                                                  
+	         	FileOutputStream outs = null;
+		PrintWriter pw = null;
+		try{
+			outs = new FileOutputStream("cheatsheet.txt");
+			pw  = new PrintWriter(outs);
+			String s ="";
+		for(int i =0; i< newG.getNumRows(); ++i){    
+			s+="---------------------------------------------------------------------- \n";
+		for(int j =0 ; j < newG.getNumColumns(); j++){  
+		s+= String.format("|%6s",newG.getBombGrid()[i][j]); 
+		} 
+		s+="\n";
+		}
+		s+="----------------------------------------------------------------------\n";
+
+		s+="\n";
+		s+="\n";
+		s+="\n";
+		s+="\n";	
+		s+="\n";
+
+		
+
+		for(int i= 0 ;i<newG.getNumRows();++i){
+			s+="------------------------------\n";
+
+			for(int j=0; j< newG.getNumColumns();j++ ) {
+			 s+= String.format("|%2s",newG.getCountGrid()[i][j]); 
+				
+			}
+				s+="\n";
+
+		}
+		s+="------------------------------\n";
+		 pw.write(s);
+		 pw.flush();
+		 outs.close();
+		
+		} 
+		catch(FileNotFoundException e){
+			System.out.println(e.getMessage());
+		}
+		catch(Exception e ) {
+			System.out.println(e.getMessage());
+		}                                                                                  
 	}                                                                                                                     
 	                                                                                                                      
 	                                                                                                                      
@@ -170,28 +174,18 @@ public class jp extends JPanel {
 		}                                                                                                                 
 	}                                                                                                                     
 	                                                                                                                      
-	protected  int  getRestartVal() {                                                                                     
-	                                                                                                                      
-		return restartGame;                                                                                               
-	}                                                                                                                     
-	     public void displayZero(int r,int c) {                                                                             
-	//edgeCase                                                                                                     
-	if((r==0 && c==0) ||(r==0 && c ==newG.getNumColumns() -1) ||(r == newG.getNumRows()-1 && c ==0) || (r== newG.getNumRows()-1 && c== newG.getNumColumns()-1) ) {
+                                                                                                                   
+	public void displayZero(int r,int c) {                                                                             
+		if((r==0 && c==0) ||(r==0 && c ==newG.getNumColumns() -1) ||(r == newG.getNumRows()-1 && c ==0) || (r== newG.getNumRows()-1 && c== newG.getNumColumns()-1) ) {
 		edgeCaseDisplay(r,c);                                                                                      
 		return;                                                                                                    
-	}                                                                                                              
-	                                                                                                               
-	                                                                                                               
-	//BorderCase                                                                                                   
-	                                                                                                               
-	if((r==0 ) || (r == newG.getNumRows() -1 ) ||(c==0)||(c == newG.getNumColumns()-1) ){                          
+		}                                                                                                              
+		if((r==0 ) || (r == newG.getNumRows() -1 ) ||(c==0)||(c == newG.getNumColumns()-1) ){                          
 		borderCaseDisplay(r,c);                                                                                    
 		return;                                                                                                    
-	}                                                                                                              
-	                                                                                                               
-	                                                                                                               
-	adjacentCellDisplay(r,c);                                                                                      
-return;                                                                                                            
+		}                                                                                                              
+		adjacentCellDisplay(r,c);                                                                                      
+		return;                                                                                                            
 	                                                                                                               
 	                                                                                                               
 	                                                                                                               
@@ -485,38 +479,30 @@ return;
 					if(newG.isBombAtLocation(cSqX,cSqY)) {                                                                
 						clickedSquare.setIcon(bombIcon);                                                                  
 						clickedSquare.isMined =true;                                                                      
-						                                                                                                  
-						//disAllSqs();                                                                                    
 						setAllSqs();                                                                                      
-						                                                                                                  
-						                                                                                                  
-						                                                                                                  
-					String s = "You mined a bomb!! \n Do you want to play again ?";                                       
+						String s = "You mined a bomb!! \n Do you want to play again ?";                                       
 						restartGame = JOptionPane.showOptionDialog(null,s, "GAME OVER", JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,bombLoss,null,null);
-					if(restartGame == JOptionPane.YES_OPTION) {                                                           
+							if(restartGame == JOptionPane.YES_OPTION) {                                                           
 						JComponent comp = (JComponent) e.getSource();                                                     
 						  Window win = SwingUtilities.getWindowAncestor(comp);                                            
 						  win.dispose();                                                                                  
 						ggz = new newGame();                                                                              
-					}                                                                                                     
-					else {                                                                                                
+							}                                                                                                     
+							else {                                                                                                
 						JComponent comp = (JComponent) e.getSource();                                                     
 						  Window win = SwingUtilities.getWindowAncestor(comp);                                            
 						  win.dispose();                                                                                  
 						  System.exit(0);                                                                                 
                                                                                                                           
-					}                                                                                                     
+							}                                                                                                     
 						                                                                                                  
 					}                                                                                                     
-					else {                                                                                                
+				  	else {                                                                                                
 						                                                                                                  
 						if(newG.getCountAtLocation(cSqX, cSqY)==0) {                                                      
 							clickedSquare.isMined =true;                                                                  
 							numSqs++;                                                                                     
 							displayZero(cSqX, cSqY);                                                                      
-							                                                                                              
-							                                                                                              
-							                                                                                              
 						}                                                                                                 
 						                                                                                                  
 						else {                                                                                            
@@ -542,7 +528,6 @@ return;
 					                                                                                                      
 					if(sqsRemaining ==newG.getNumBombs()) {                                                               
 						String w ="YOU WON!! \n Do you want to play again?";                                              
-						//int gameWon = JOptionPane.showConfirmDialog(null,w,"GAME WON",JOptionPane.YES_NO_OPTION);       
 						int gameWon = JOptionPane.showOptionDialog(null,w, "GAME WON", JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,trophyIcon,null,null);
                                                                                                                           
 						if(gameWon == JOptionPane.YES_OPTION) {                                                           
@@ -581,18 +566,7 @@ return;
 		                                                                                                                  
 	 }                                                                                                                    
 		                                                                                                                  
-	                                                                                                                      
-                                                                                                                          
-                                                                                                                          
-	                                                                                                                      
-	                                                                                                                      
-//	public static void main (String[] args) {                                                                             
-//		                                                                                                                  
-//	newGame gg = new newGame();                                                                                           
-//		                                                                                                                  
-//		                                                                                                                  
-//	}                                                                                                                     
-	                                                                                                                      
+                                                                                                                      
 	                                                                                                                      
 }                                                                                                                         
                                                                                                                           

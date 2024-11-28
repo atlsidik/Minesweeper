@@ -28,31 +28,26 @@ public class inputFrame extends JFrame implements ActionListener{
 	public inputFrame() {
 	    super("Create Session");
 	    
-	    //create row label and Textfield
 		JLabel rows = new JLabel("Enter Rows: ");
 		 rowText = new JTextField(15);
 		 rowText.setText("0");		
 		rowText.setEditable(true);
 		
 		
-		//create column label and text
 		JLabel columns = new JLabel("Enter Columns: ");
 		 colText = new JTextField(15);
 		colText.setEditable(true);
 		colText.setText("0");
 		
 		
-		//create start button 
 		 btn = new JButton("START");
 		 
 		 
-		 //create bomb label and field
 		JLabel bombs = new JLabel("Enter bombs: ");
 		bombText = new JTextField(15);
 		bombText.setText("25");
 		
 		
-		//set LayoutManager
 		setLayout(new GridBagLayout());
 		setMaximumSize(new Dimension(500,500));
 		this.setAlwaysOnTop(true);
@@ -62,18 +57,15 @@ public class inputFrame extends JFrame implements ActionListener{
 		
 		GridBagConstraints cns = null;
 		
-		//add Row Label
 		cns = new GridBagConstraints();
 		cns.gridx =0;
 		cns.gridy=0;
 		 cns.weightx = 0.1;
 	        cns.weighty = 0.1;
 	        cns.anchor = GridBagConstraints.LINE_START;
-	       // cns.fill = GridBagConstraints.NONE;
 		cns.insets =new Insets(10,10,10,10);
 		add(rows,cns);
 		
-		//add Row Textfield
 		cns.gridx =1;
 		cns.gridy=0;
 		cns.insets =new Insets(10,10,10,10);
@@ -81,36 +73,30 @@ public class inputFrame extends JFrame implements ActionListener{
 		add(rowText,cns);
 		
 		
-	//add column label
 		cns.gridx =0;
 		cns.gridy=1;
 		cns.anchor = GridBagConstraints.LINE_START;
 		cns.insets =new Insets(10,10,10,10);
 		add(columns,cns);
 		
-	//add numColumns TextField
 		cns.gridx =1;
 		cns.gridy=1;
 		cns.insets =new Insets(10,10,10,10);
 		cns.anchor = GridBagConstraints.LINE_START;
 		add(colText,cns);
 		
-	//add bomb label
 		cns.gridx =0;
 		cns.gridy=2;
 		cns.anchor = GridBagConstraints.LINE_START;
 		cns.insets =new Insets(10,10,10,10);
 		add(bombs,cns);
 		
-		//add bomb textField
 		cns.gridx = 1;
 		cns.gridy = 2;
 		cns.anchor =  GridBagConstraints.LINE_START;
 		cns.insets =new Insets(10,10,10,10);
 		add(bombText,cns);
 		
-		
-		//add start button
 		cns.gridx =0;
 		cns.gridy=3;
 		cns.insets =new Insets(10,10,10,10);
@@ -175,20 +161,14 @@ public int getCustomBomb() {
 			JFrame pFrame = new JFrame();
 			
 		 pp = new jp(customRow,customCol,customBombs);
-			//pp.getRestartVal();
 			pFrame.add(pp);
 			pFrame.pack();
 			pFrame.setVisible(doneWithInput);
-		//System.out.println(customRow);
-			//System.out.println(customCol);
 			pFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			
 			
 		}
-		public int shouldRestart() {
-			return pp.getRestartVal();
-		}
-		
+			
 	}
 	
 	
